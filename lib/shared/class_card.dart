@@ -1,0 +1,101 @@
+import 'package:flutter/material.dart';
+import '../../../shared/styles/defaultStyles.dart';
+
+class ClassCard extends StatefulWidget {
+  int calories;
+  int duration;
+  String className;
+  String img;
+  int level;
+  double? width;
+  double? height;
+  ClassCard({
+    required this.className,
+    required this.calories,
+    required this.duration,
+    required this.img,
+    required this.level,
+    this.width,
+    this.height,
+    super.key,
+  });
+
+  @override
+  State<ClassCard> createState() => _ClassCardState();
+}
+
+class _ClassCardState extends State<ClassCard> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 200,
+      height: 300,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: widget.width == null ? 200 : widget.width,
+            height: widget.height == null ? 200 : widget.height,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              image: DecorationImage(
+                image: AssetImage("${widget.img}"),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          SizedBox(height: 10),
+          Row(
+            children: [
+              Text(
+                "${widget.className}",
+                style: titleStyle.copyWith(fontSize: 18),
+              ),
+              Spacer(),
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                        text: "Level:",
+                        style: titleStyle.copyWith(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
+                    TextSpan(
+                      text: " ${widget.level}",
+                      style: titleStyle.copyWith(
+                          fontSize: 15, fontWeight: FontWeight.normal),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "${widget.calories} cal ",
+                      style: titleStyle.copyWith(
+                          fontSize: 15, fontWeight: FontWeight.bold),
+                    ),
+                    TextSpan(
+                      text: "•",
+                      style: titleStyle.copyWith(
+                          fontSize: 22, fontWeight: FontWeight.bold),
+                    ),
+                    TextSpan(
+                      text: " ${widget.duration} minutes",
+                      style: titleStyle.copyWith(
+                          fontSize: 15, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
