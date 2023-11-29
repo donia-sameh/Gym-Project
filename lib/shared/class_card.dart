@@ -35,8 +35,8 @@ class _ClassCardState extends State<ClassCard> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: widget.width == null ? 200 : widget.width,
-            height: widget.height == null ? 200 : widget.height,
+            width: widget.width == null ? 150 : widget.width,
+            height: widget.height == null ? 150 : widget.height,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               image: DecorationImage(

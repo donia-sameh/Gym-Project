@@ -59,8 +59,8 @@ class _AllClassesPageState extends State<AllClassesPage> {
                               );
                             },
                             child: ClassCard(
-                              width: 180,
-                              height: 170,
+                              width: 150,
+                              height: 130,
                               className: class_.className,
                               calories: class_.estimatedCalories,
                               duration: class_.duration,
