@@ -147,7 +147,8 @@ class _LoginState extends State<Login> {
                                 ..showSnackBar(snackBar);
                               Navigator.pushNamedAndRemoveUntil(
                                 context,
-                                '/home',
+                                //'/home',
+                                 '/gender',
                                 (route) => false,
                               );
                             } else if (clerk.isNotEmpty) {

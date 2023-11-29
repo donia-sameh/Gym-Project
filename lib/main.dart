@@ -4,6 +4,8 @@ import 'package:gym_project/screens/bottomNavigationPages/bottomPages/classInfo.
 import 'package:gym_project/screens/bottomNavigationPages/bottomPages/coachInfo.dart';
 import 'package:gym_project/screens/bottomNavigationPages/bottomPages/successfullbooking.dart';
 import 'package:gym_project/screens/bottomNavigationPages/navbar.dart';
+import 'package:gym_project/screens/weightScreen/weight_screen.dart';
+//import 'package:gym_project/screens/genderScreen/gender_screen.dart';
 import 'package:gym_project/screens/loginscreen/login_screen.dart';
 import 'package:gym_project/screens/admin_screen/admin_screens.dart';
 import 'package:gym_project/screens/splashScreen/splash_screen.dart';
@@ -27,6 +29,7 @@ class MyApp extends StatelessWidget {
         '/splashscreen': (context) => SplashScreen(),
         '/signup': (context) => Signup(),
         '/login': (context) => Login(),
+        '/gender':(context) => WeightWidget(),
         '/home': (context) => BottomPages(),
         '/home/classInfo': (context) => ClassInfo(),
         '/home/coachInfo': (context) => CoachInfo(),

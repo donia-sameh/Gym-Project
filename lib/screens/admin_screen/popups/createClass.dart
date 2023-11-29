@@ -207,7 +207,6 @@ class _CreateClassState extends State<CreateClass> {
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);
             }
-
             Navigator.pop(context);
           },
         )
