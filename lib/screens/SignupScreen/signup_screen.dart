@@ -5,6 +5,7 @@ import 'package:form_validator/form_validator.dart';
 import 'package:gym_project/shared/customWidgets/CustomDropDown.dart';
 import 'package:gym_project/shared/customWidgets/Custom_buttom.dart';
 import 'package:gym_project/shared/styles/defaultStyles.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 import '../../shared/customWidgets/CustomTextField.dart';
 import '../../../shared/styles/defaultStyles.dart';
@@ -175,7 +176,7 @@ class _SignupState extends State<Signup> {
                                   DateTime? newDate = await showDatePicker(
                                     context: context,
                                     initialDate: date,
-                                    firstDate: DateTime(2010),
+                                    firstDate: DateTime(2002),
                                     lastDate: DateTime(2100),
                                   );
                                   /* If "Cancel" => null */
