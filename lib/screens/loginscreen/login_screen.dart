@@ -148,7 +148,7 @@ class _LoginState extends State<Login> {
                               Navigator.pushNamedAndRemoveUntil(
                                 context,
                                 //'/home',
-                                 '/gender',
+                                 '/age',
                                 (route) => false,
                               );
                             } else if (clerk.isNotEmpty) {

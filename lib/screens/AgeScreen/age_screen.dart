@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-class WeightWidget extends StatefulWidget {
+
+class AgeScreen extends StatefulWidget {
   @override
-  _WeightWidgetState createState() => _WeightWidgetState();
+  _AgeWidgetState createState() => _AgeWidgetState();
 }
 
-class _WeightWidgetState extends State<WeightWidget> {
-  int selectedWeight = 50; // Initial weight value
+class _AgeWidgetState extends State<AgeScreen> {
+  int selectedAge = 25; // Initial age value
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,7 @@ class _WeightWidgetState extends State<WeightWidget> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      'WHAT IS YOUR WEIGHT?',
+                      'WHAT IS YOUR AGE?',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Color.fromRGBO(255, 255, 255, 1),
@@ -52,7 +53,7 @@ class _WeightWidgetState extends State<WeightWidget> {
                       ),
                     ),
                     Text(
-                      'YOU CAN ALWAYS CHANGE THIS LATER',
+                      'THIS HELPS US CREATE YOUR PERSONALIZED PLAN',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Color.fromRGBO(255, 255, 255, 1),
@@ -74,7 +75,7 @@ class _WeightWidgetState extends State<WeightWidget> {
                   itemExtent: screenHeight * 0.1, // Adjust the item extent as needed
                   physics: FixedExtentScrollPhysics(),
                   children: List.generate(
-                    150, // Number of weight options
+                    100, // Number of age options
                     (index) => Center(
                       child: Text(
                         (index + 1).toString(),
@@ -87,7 +88,7 @@ class _WeightWidgetState extends State<WeightWidget> {
                   ),
                   onSelectedItemChanged: (index) {
                     setState(() {
-                      selectedWeight = index + 1;
+                      selectedAge = index + 1;
                     });
                   },
                 ),
@@ -98,9 +99,9 @@ class _WeightWidgetState extends State<WeightWidget> {
                 padding: EdgeInsets.only(top: screenHeight * 0.2, right: screenWidth * 0.05),
                 child: ElevatedButton(
                   onPressed: () {
-                    // Handle the "Next" button press with the selectedWeight
-                    Navigator.pushNamedAndRemoveUntil(context,'/height',((route) => false));
-                    print("Next button pressed with weight: $selectedWeight");
+                    // Handle the "Next" button press with the selectedAge
+                    Navigator.pushNamedAndRemoveUntil(context,'/weight',((route) => false));
+                    print("Next button pressed with age: $selectedAge");
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),

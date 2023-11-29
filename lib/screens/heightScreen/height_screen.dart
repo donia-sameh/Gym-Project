@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 
-class WeightWidget extends StatefulWidget {
-  @override
-  _WeightWidgetState createState() => _WeightWidgetState();
+void main() {
+  runApp(HeightWidget());
 }
 
-class _WeightWidgetState extends State<WeightWidget> {
-  int selectedWeight = 50; // Initial weight value
+class HeightWidget extends StatefulWidget {
+  @override
+  _HeightWidgetState createState() => _HeightWidgetState();
+}
+
+class _HeightWidgetState extends State<HeightWidget> {
+  int selectedHeight = 170; // Initial height value in centimeters
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +44,7 @@ class _WeightWidgetState extends State<WeightWidget> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      'WHAT IS YOUR WEIGHT?',
+                      'WHAT IS YOUR HEIGHT?',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Color.fromRGBO(255, 255, 255, 1),
@@ -52,7 +56,7 @@ class _WeightWidgetState extends State<WeightWidget> {
                       ),
                     ),
                     Text(
-                      'YOU CAN ALWAYS CHANGE THIS LATER',
+                      'THIS HELPS US CREATE YOUR PERSONALIZED PLAN',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Color.fromRGBO(255, 255, 255, 1),
@@ -74,10 +78,10 @@ class _WeightWidgetState extends State<WeightWidget> {
                   itemExtent: screenHeight * 0.1, // Adjust the item extent as needed
                   physics: FixedExtentScrollPhysics(),
                   children: List.generate(
-                    150, // Number of weight options
+                    300, // Number of height options
                     (index) => Center(
                       child: Text(
-                        (index + 1).toString(),
+                        (index + 100).toString(),
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 35,
@@ -87,7 +91,7 @@ class _WeightWidgetState extends State<WeightWidget> {
                   ),
                   onSelectedItemChanged: (index) {
                     setState(() {
-                      selectedWeight = index + 1;
+                      selectedHeight = index + 100;
                     });
                   },
                 ),
@@ -98,9 +102,9 @@ class _WeightWidgetState extends State<WeightWidget> {
                 padding: EdgeInsets.only(top: screenHeight * 0.2, right: screenWidth * 0.05),
                 child: ElevatedButton(
                   onPressed: () {
-                    // Handle the "Next" button press with the selectedWeight
-                    Navigator.pushNamedAndRemoveUntil(context,'/height',((route) => false));
-                    print("Next button pressed with weight: $selectedWeight");
+                    // Handle the "Next" button press with the selectedHeight
+                    Navigator.pushNamedAndRemoveUntil(context, '/goal', (route) => false);
+                    print("Next button pressed with height: $selectedHeight cm");
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),

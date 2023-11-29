@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class WeightWidget extends StatefulWidget {
+class ActivityLevelWidget extends StatefulWidget {
   @override
-  _WeightWidgetState createState() => _WeightWidgetState();
+  _ActivityLevelWidgetState createState() => _ActivityLevelWidgetState();
 }
 
-class _WeightWidgetState extends State<WeightWidget> {
-  int selectedWeight = 50; // Initial weight value
+class _ActivityLevelWidgetState extends State<ActivityLevelWidget> {
+  String selectedActivityLevel = 'Sedentary'; // Initial activity level value
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class _WeightWidgetState extends State<WeightWidget> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      'WHAT IS YOUR WEIGHT?',
+                      'WHAT IS YOUR ACTIVITY?',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Color.fromRGBO(255, 255, 255, 1),
@@ -52,7 +52,7 @@ class _WeightWidgetState extends State<WeightWidget> {
                       ),
                     ),
                     Text(
-                      'YOU CAN ALWAYS CHANGE THIS LATER',
+                      'THIS HELPS US CREATE YOUR PERSONALIZED PLAN',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Color.fromRGBO(255, 255, 255, 1),
@@ -71,23 +71,35 @@ class _WeightWidgetState extends State<WeightWidget> {
                 width: screenWidth * 0.4,
                 height: screenHeight * 0.4, // Adjust the height of the wheel
                 child: ListWheelScrollView(
-                  itemExtent: screenHeight * 0.1, // Adjust the item extent as needed
+                  itemExtent:
+                      screenHeight * 0.1, // Adjust the item extent as needed
                   physics: FixedExtentScrollPhysics(),
-                  children: List.generate(
-                    150, // Number of weight options
-                    (index) => Center(
+                  children: [
+                    'Sedentary',
+                    'Lightly Active',
+                    'Moderately Active',
+                    'Very Active',
+                    'Extremely Active',
+                  ].map((activityLevel) {
+                    return Center(
                       child: Text(
-                        (index + 1).toString(),
+                        activityLevel,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 35,
                         ),
                       ),
-                    ),
-                  ),
+                    );
+                  }).toList(),
                   onSelectedItemChanged: (index) {
                     setState(() {
-                      selectedWeight = index + 1;
+                      selectedActivityLevel = [
+                        'Sedentary',
+                        'Lightly Active',
+                        'Moderately Active',
+                        'Very Active',
+                        'Extremely Active',
+                      ][index];
                     });
                   },
                 ),
@@ -95,15 +107,18 @@ class _WeightWidgetState extends State<WeightWidget> {
               SizedBox(height: screenHeight * 0.05),
               Container(
                 alignment: Alignment.bottomRight,
-                padding: EdgeInsets.only(top: screenHeight * 0.2, right: screenWidth * 0.05),
+                padding: EdgeInsets.only(
+                    top: screenHeight * 0.2, right: screenWidth * 0.05),
                 child: ElevatedButton(
                   onPressed: () {
-                    // Handle the "Next" button press with the selectedWeight
-                    Navigator.pushNamedAndRemoveUntil(context,'/height',((route) => false));
-                    print("Next button pressed with weight: $selectedWeight");
+                    // Handle the "Next" button press with the selectedActivityLevel
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/home', (route) => false);
+                    print("Next button pressed with activity level: $selectedActivityLevel");
                   },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 15),
                     child: Text(
                       'Next',
                       style: TextStyle(
