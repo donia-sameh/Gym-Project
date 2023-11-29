@@ -1,9 +1,54 @@
+import 'dart:io';
+
 import 'package:gym_project/models/coach.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-
+import 'package:path_provider/path_provider.dart';
+import 'dart:async';
+import 'dart:io';
 import '../models/Class.dart';
 import '../models/user.dart';
+
+
+class DatabaseHelper {
+  static final DatabaseHelper _instance = DatabaseHelper._internal();
+
+  factory DatabaseHelper() => _instance;
+
+  DatabaseHelper._internal();
+
+  static Database? _database;
+
+  Future<Database?> get database async {
+    if (_database != null) return _database;
+
+    _database = await initDatabase();
+    return _database;
+  }
+
+  Future<Database> initDatabase() async {
+    Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    String path = join(documentsDirectory.path, 'your_database.db');
+
+    return await openDatabase(
+      path,
+      version: 1,
+      onCreate: (Database db, int version) async {
+        // Create your tables if needed
+      },
+    );
+  }
+
+  Future<void> deleteDatabaseFile() async {
+    Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    String path = join(documentsDirectory.path, 'your_database.db');
+
+    await deleteDatabase(path);
+    _database = null;
+  }
+}
+
+
 
 class DatabaseService {
   static Database? _db;
@@ -140,6 +185,8 @@ class DatabaseService {
     int response = await mydb!.rawInsert(sql);
     return response;
   }
+
+
 
   Future<List> allClasses() async {
     Database? mydb = await db;

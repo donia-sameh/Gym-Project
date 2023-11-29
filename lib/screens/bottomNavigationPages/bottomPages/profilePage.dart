@@ -1,5 +1,13 @@
 // ignore_for_file: unnecessary_string_interpolations, unnecessary_null_comparison, prefer_conditional_assignment
 
+import 'dart:io';
+
+import 'package:gym_project/models/coach.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:gym_project/globals/globals.dart';
 import 'package:gym_project/models/user.dart';
@@ -7,16 +15,56 @@ import 'package:gym_project/screens/bottomNavigationPages/bottomPages/successful
 import 'package:gym_project/services/databaseService.dart';
 import 'package:gym_project/shared/customWidgets/CustomTextField.dart';
 import 'package:gym_project/shared/customWidgets/Custom_buttom.dart';
+import 'package:sqflite/sqlite_api.dart';
 import '../../../shared/styles/defaultStyles.dart';
 
+class DatabaseHelper {
+  static final DatabaseHelper _instance = DatabaseHelper._internal();
+
+  factory DatabaseHelper() => _instance;
+
+  DatabaseHelper._internal();
+
+  static Database? _database;
+
+  Future<Database?> get database async {
+    if (_database != null) return _database;
+
+    _database = await initDatabase();
+    return _database;
+  }
+
+  Future<Database> initDatabase() async {
+    Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    String path = join(documentsDirectory.path, 'your_database.db');
+
+    return await openDatabase(
+      path,
+      version: 1,
+      onCreate: (Database db, int version) async {
+        // Create your tables if needed
+      },
+    );
+  }
+
+  Future<void> deleteDatabaseFile() async {
+    Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    String path = join(documentsDirectory.path, 'your_database.db');
+
+    await deleteDatabase(path);
+    _database = null;
+  }
+}
+
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+   ProfilePage({super.key});
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  final DatabaseHelper dbHelper = DatabaseHelper();
   DatabaseService _db = DatabaseService();
   int? userId = Globals.getUserId();
   late User userData;
@@ -167,7 +215,16 @@ class _ProfilePageState extends State<ProfilePage> {
                 );
               }
             }),
-          )
+          ),
+            SizedBox(height: 20),
+            
+          CustomButtom(
+              text: 'Sign Out',
+              pressed: () async {
+                await dbHelper.deleteDatabaseFile();
+                // Navigate to the login or home screen after sign-out if needed
+                Navigator.pushReplacementNamed(context, '/login');
+  }, width: 350),
         ],
       ),
     )));
