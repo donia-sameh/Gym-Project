@@ -1,4 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:gym_project/controllers/auth_service.dart';
+import 'package:gym_project/firebase_options.dart';
 import 'package:gym_project/screens/AgeScreen/age_screen.dart';
 import 'package:gym_project/screens/SignupScreen/signup_screen.dart';
 import 'package:gym_project/screens/activityScreen/activity_screen.dart';
@@ -8,6 +11,7 @@ import 'package:gym_project/screens/bottomNavigationPages/bottomPages/successful
 import 'package:gym_project/screens/bottomNavigationPages/navbar.dart';
 import 'package:gym_project/screens/goalScreen/goal_screen.dart';
 import 'package:gym_project/screens/heightScreen/height_screen.dart';
+import 'package:gym_project/screens/loginscreen/LoginPageEmail.dart';
 import 'package:gym_project/screens/videoup/video.dart';
 import 'package:gym_project/screens/weightScreen/weight_screen.dart';
 //import 'package:gym_project/screens/genderScreen/gender_screen.dart';
@@ -16,14 +20,37 @@ import 'package:gym_project/screens/admin_screen/admin_screens.dart';
 import 'package:gym_project/screens/splashScreen/splash_screen.dart';
 //import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(const CheckUserLoggedInOrNot());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class CheckUserLoggedInOrNot extends StatefulWidget {
+  const CheckUserLoggedInOrNot({super.key});
 
   @override
+  State<CheckUserLoggedInOrNot> createState() => _CheckUserLoggedInOrNotState();
+}
+
+class _CheckUserLoggedInOrNotState extends State<CheckUserLoggedInOrNot> {
+  @override
+  void initState() {
+    AuthService.isLoggedIn().then((value) {
+      if (value) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => AgeScreen()));
+      } else {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => LoginSignupPage()));
+      }
+    });
+    super.initState();
+  }
+  
+@override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -33,7 +60,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/splashscreen': (context) => SplashScreen(),
         '/signup': (context) => Signup(),
-        '/login': (context) => Login(),
+        '/login': (context) => LoginSignupPage(),
         '/age':(context) => AgeScreen(),
         '/weight':(context) => WeightWidget(),
         '/height':(context) => HeightWidget(),

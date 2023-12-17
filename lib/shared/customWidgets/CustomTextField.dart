@@ -38,7 +38,7 @@ class CustomTextField extends StatelessWidget {
         SizedBox(
           width: width,
           height: 55,
-          child: TextField(
+          child: TextFormField(
             controller: controller,
             style: TextStyle(
                 fontSize: 13,

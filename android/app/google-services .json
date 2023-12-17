@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "801313995148",
+    "firebase_url": "https://habeba-default-rtdb.firebaseio.com",
+    "project_id": "habeba",
+    "storage_bucket": "habeba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:801313995148:android:cd069f5292017ac876bea9",
+        "android_client_info": {
+          "package_name": "com.company.GymmProjectt"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjVBvl8zruaYOPTJcGbUrt6h3EnpZuiAk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:801313995148:android:0068d21014aecdfb76bea9",
+        "android_client_info": {
+          "package_name": "com.example.GymmProjectt"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjVBvl8zruaYOPTJcGbUrt6h3EnpZuiAk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

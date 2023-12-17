@@ -23,6 +23,7 @@ class _LoginState extends State<Login> {
 
   String email = "";
   String password = "";
+ 
 
   @override
   void initState() {
@@ -51,7 +52,7 @@ class _LoginState extends State<Login> {
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
-            /* crossAxisAlignment: CrossAxisAlignment.center, */
+             crossAxisAlignment: CrossAxisAlignment.center, 
             children: [
               Container(
                 decoration: BoxDecoration(
@@ -61,6 +62,7 @@ class _LoginState extends State<Login> {
                     color: Color(0xff0D0D0D)),
                 width: MediaQuery.of(context).size.width,
                 child: Padding(
+                   
                   padding: const EdgeInsets.fromLTRB(0, 25, 0, 25),
                   child: Column(
                     children: [
@@ -69,6 +71,7 @@ class _LoginState extends State<Login> {
                         children: [
                           CustomTextField(
                             name: "Email",
+                            
                             width: 260,
                             obscureText: false,
                             hintText: "Email",
