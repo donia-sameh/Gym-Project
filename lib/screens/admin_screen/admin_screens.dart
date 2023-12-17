@@ -1,17 +1,17 @@
-import 'package:flutter/gestures.dart';
+//import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+//import 'package:google_fonts/google_fonts.dart';
 import 'package:gym_project/screens/admin_screen/popups/createClass.dart';
 import 'package:gym_project/screens/admin_screen/popups/Createcoach.dart';
 import 'package:gym_project/screens/admin_screen/popups/deleteClass.dart';
-import 'package:gym_project/screens/loginscreen/login_screen.dart';
+//import 'package:gym_project/screens/loginscreen/login_screen.dart';
 import 'package:gym_project/services/databaseService.dart';
-import 'package:gym_project/shared/customWidgets/CustomTextField.dart';
+//import 'package:gym_project/shared/customWidgets/CustomTextField.dart';
 import 'package:gym_project/shared/customWidgets/custom_app_bar.dart';
 import '../../../shared/styles/defaultStyles.dart';
 
 import '../../shared/customWidgets/Custom_buttom.dart';
-import '../SignupScreen/signup_screen.dart';
+//import '../SignupScreen/signup_screen.dart';
 
 class AdminScreens extends StatelessWidget {
     final DatabaseHelper dbHelper = DatabaseHelper();
@@ -33,7 +33,7 @@ class AdminScreens extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            Text('operations that you have', style: titleStyle),
+            Text('Operations that you have', style: titleStyle),
             SizedBox(
               height: 30,
             ),

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:gym_project/models/Class.dart';
+import 'package:gym_project/shared/customWidgets/CustomDropDown.dart';
 import '../../../shared/customWidgets/CustomTextField.dart';
 import '../../../services/databaseService.dart';
 import '../../../shared/customWidgets/Custom_buttom.dart';
@@ -21,6 +22,9 @@ class CreateClass extends StatefulWidget {
 class _CreateClassState extends State<CreateClass> {
   DatabaseService _db = DatabaseService();
 
+//  List<String> items=['Item 1','https://www.youtube.com/watch?v=Osd4DLpMNp4','https://youtu.be/hMugJNq6kJg?si=Pk9S3Pyn6BHad4UN','Item 3','Item 4'];
+//   String? _selectedItem='Item 1';
+
   TextEditingController _classNameController = TextEditingController();
   TextEditingController _classLevelController = TextEditingController();
   TextEditingController _classDescreptionController = TextEditingController();
@@ -30,6 +34,7 @@ class _CreateClassState extends State<CreateClass> {
   TextEditingController _endTimeController = TextEditingController();
   TextEditingController _durationController = TextEditingController();
   TextEditingController _etimatedCaloriesController = TextEditingController();
+  TextEditingController _youtubeController=TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +49,7 @@ class _CreateClassState extends State<CreateClass> {
       ),
       content: SingleChildScrollView(
         child: Container(
-          height: 400,
+          height: 550,
           child: Column(
             children: [
               Row(
@@ -159,6 +164,40 @@ class _CreateClassState extends State<CreateClass> {
                   )
                 ],
               ),
+               SizedBox(
+                    width: 30,
+                    height:12,
+                  ),
+                  CustomTextField(
+                    name: 'Youtube Link',
+                    width: 300,
+                    obscureText: false,
+                    hintText: 'enter youtube link..',
+                    colortext: Colors.black,
+                    controller: _youtubeController,
+                  )
+              // const SizedBox(
+              //       width: 5,
+              //       height:5,
+              //     ),
+              //    Center(
+              //     child: DropdownButton<String>(
+              //      value:_selectedItem!.trim().toString(),
+                   
+              //      items:items.map((item) => DropdownMenuItem<String>(
+              //       value:item,
+              //       child: Text(item,style:TextStyle(fontSize: 24)),
+              //       )).toList(),
+              //       onChanged: (item) => setState(() =>
+              //         _selectedItem=item,
+              //       ),
+              //     ),
+              //     )  ,
+              //     const SizedBox(
+              //       width: 5,
+              //       height:5,
+              //     ),
+                  
             ],
           ),
         ),
@@ -180,6 +219,7 @@ class _CreateClassState extends State<CreateClass> {
                 'tags': _classTagsController.text.trim(),
                 'startTime': _startTimeController.text.trim().toString(),
                 'endTime': _endTimeController.text.trim().toString(),
+                'youtube': _youtubeController.text.trim(),
                 'pricePerClass':
                     double.parse(_pricePerclassController.text.trim()),
               });

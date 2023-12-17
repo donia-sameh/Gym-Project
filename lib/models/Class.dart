@@ -9,6 +9,7 @@ class Class {
   late final int _duration;
   late final String _startTime;
   late final String _endTime;
+  late final String _youtube;
   late final double _pricePerClass;
 
   Class(dynamic obj) {
@@ -22,6 +23,7 @@ class Class {
     _tags = obj['tags'];
     _startTime = obj['startTime'];
     _endTime = obj['endTime'];
+    _youtube=obj['youtube'];
     _pricePerClass = obj['pricePerClass'];
   }
 
@@ -36,6 +38,7 @@ class Class {
     _tags = data['tags'];
     _startTime = data['startTime'];
     _endTime = data['endTime'];
+   // _youtube=data['youtube'];
     _pricePerClass = data['pricePerClass'];
   }
 
@@ -50,6 +53,7 @@ class Class {
         'tags': _tags,
         'startTime': _startTime,
         'endTime': _endTime,
+        'youtube':_youtube,
         'pricePerClass': _pricePerClass,
       };
 
@@ -62,6 +66,7 @@ class Class {
   int get duration => _duration;
   String get startTime => _startTime;
   String get endTime => _endTime;
+  String? get youtube => _youtube;
   String? get tags => _tags;
   double? get pricePerClass => _pricePerClass;
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gym_project/models/Class.dart';
+import 'package:gym_project/screens/videoup/video.dart';
 import 'package:gym_project/services/databaseService.dart';
 import 'package:gym_project/shared/coach_card.dart';
 import '../../../models/coach.dart';
@@ -36,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               CustomAppBar(
                 userName: "User",
-                description: "have a nice Day In Our App",
+                description: "Welcome to our gym",
               ),
               const SizedBox(height: 40),
               Text(
@@ -78,7 +79,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       }
                     },
                   )),
-              const SizedBox(height: 15),
+                  const SizedBox(height: 30),
+              //     Text(
+              //   "Training Videos",
+              //   style: titleStyle.copyWith(fontSize: 25),
+              // ),
+              // Container(
+              //     height: 216,
+              //     child: VideoPage(),
+              //     ),
+              // const SizedBox(height: 15),
               Text(
                 "Classes By Category",
                 style: titleStyle.copyWith(fontSize: 25),

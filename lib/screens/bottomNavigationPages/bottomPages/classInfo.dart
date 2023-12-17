@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gym_project/globals/globals.dart';
 import 'package:gym_project/models/Class.dart';
+import 'package:gym_project/screens/videoup/video.dart';
 
 import '../../../models/user.dart';
 import '../../../services/databaseService.dart';
@@ -81,18 +82,19 @@ class _ClassInfoState extends State<ClassInfo> {
                     Center(
                       child: Container(
                         width: 300,
-                        height: 300,
+                        height: 170,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
-                          image: const DecorationImage(
-                            image: AssetImage("assets/girl-box.png"),
-                            fit: BoxFit.cover,
-                          ),
+                          // image: const DecorationImage(
+                          //   image: AssetImage("assets/girl-box.png"),
+                          //   fit: BoxFit.cover,
+                          // ),
                         ),
+                        child: const VideoPage(),
                       ),
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 50,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
