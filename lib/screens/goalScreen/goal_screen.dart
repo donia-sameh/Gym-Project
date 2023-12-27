@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phone_auth/controllers/auth_service_email.dart';
 
 class GoalWidget extends StatefulWidget {
   @override
@@ -7,7 +8,7 @@ class GoalWidget extends StatefulWidget {
 
 class _GoalWidgetState extends State<GoalWidget> {
   String selectedGoal = 'Lose Weight'; // Initial goal value
-
+  AuthService authService = AuthService();
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -72,7 +73,7 @@ class _GoalWidgetState extends State<GoalWidget> {
                 height: screenHeight * 0.4, // Adjust the height of the wheel
                 child: ListWheelScrollView(
                   itemExtent:
-                      screenHeight * 0.1, // Adjust the item extent as needed
+                      screenHeight * 0.17, // Adjust the item extent as needed
                   physics: FixedExtentScrollPhysics(),
                   children: [
                     'Lose Weight',
@@ -80,7 +81,6 @@ class _GoalWidgetState extends State<GoalWidget> {
                     'Gain Weight',
                     'Learn The Basics',
                     'Get Fit',
-                    'Body Recomposition',
                   ].map((goal) {
                     return Center(
                       child: Text(
@@ -100,7 +100,6 @@ class _GoalWidgetState extends State<GoalWidget> {
                         'Gain Weight',
                         'Learn The Basics',
                         'Get Fit',
-                        'Body Recomposition',
                       ][index];
                     });
                   },
@@ -112,11 +111,12 @@ class _GoalWidgetState extends State<GoalWidget> {
                 padding: EdgeInsets.only(
                     top: screenHeight * 0.2, right: screenWidth * 0.05),
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     // Handle the "Next" button press with the selectedGoal
                     Navigator.pushNamedAndRemoveUntil(
                         context, '/activity', (route) => false);
-                    print("Next button pressed with goal: $selectedGoal");
+                    String? user = await authService.goalEntered(selectedGoal);
+                    //print("Next button pressed with goal: $selectedGoal");
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(

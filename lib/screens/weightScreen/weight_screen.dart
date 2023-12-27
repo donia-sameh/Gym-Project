@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phone_auth/controllers/auth_service_email.dart';
 
 class WeightWidget extends StatefulWidget {
   @override
@@ -7,7 +8,7 @@ class WeightWidget extends StatefulWidget {
 
 class _WeightWidgetState extends State<WeightWidget> {
   int selectedWeight = 50; // Initial weight value
-
+  AuthService authService = AuthService();
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -71,13 +72,14 @@ class _WeightWidgetState extends State<WeightWidget> {
                 width: screenWidth * 0.4,
                 height: screenHeight * 0.4, // Adjust the height of the wheel
                 child: ListWheelScrollView(
-                  itemExtent: screenHeight * 0.1, // Adjust the item extent as needed
+                  itemExtent:
+                      screenHeight * 0.1, // Adjust the item extent as needed
                   physics: FixedExtentScrollPhysics(),
                   children: List.generate(
                     150, // Number of weight options
                     (index) => Center(
                       child: Text(
-                        (index + 1).toString(),
+                        (index + 40).toString(),
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 35,
@@ -95,15 +97,20 @@ class _WeightWidgetState extends State<WeightWidget> {
               SizedBox(height: screenHeight * 0.05),
               Container(
                 alignment: Alignment.bottomRight,
-                padding: EdgeInsets.only(top: screenHeight * 0.2, right: screenWidth * 0.05),
+                padding: EdgeInsets.only(
+                    top: screenHeight * 0.2, right: screenWidth * 0.05),
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     // Handle the "Next" button press with the selectedWeight
-                    Navigator.pushNamedAndRemoveUntil(context,'/height',((route) => false));
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/height', ((route) => false));
+                    String? user =
+                        await authService.weightEntered(selectedWeight);
                     print("Next button pressed with weight: $selectedWeight");
                   },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 15),
                     child: Text(
                       'Next',
                       style: TextStyle(

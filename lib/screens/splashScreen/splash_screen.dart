@@ -3,7 +3,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:gym_project/screens/loginscreen/login_screen.dart';
+import 'package:phone_auth/screens/loginscreen/login_screen.dart';
 import '../../../shared/styles/defaultStyles.dart';
 import '../../services/databaseService.dart';
 

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:gym_project/models/coach.dart';
+import 'package:phone_auth/models/coach.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';

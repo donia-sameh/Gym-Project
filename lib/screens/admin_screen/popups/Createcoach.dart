@@ -1,7 +1,7 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
-import 'package:gym_project/models/coach.dart';
-import 'package:gym_project/services/databaseService.dart';
+import 'package:phone_auth/models/coach.dart';
+import 'package:phone_auth/services/databaseService.dart';
 
 import '../../../shared/customWidgets/CustomTextField.dart';
 import '../../../shared/customWidgets/Custom_buttom.dart';
@@ -33,7 +33,7 @@ class _CreateCoachState extends State<CreateCoach> {
       ),
       content: SingleChildScrollView(
         child: Container(
-          height: 400,
+          height: 500,
           child: Column(
             children: [
               Row(

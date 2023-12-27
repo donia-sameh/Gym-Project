@@ -57,10 +57,6 @@ class CustomAppBar extends StatelessWidget {
                     width: 60,
                     height: 60,
                     decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.white,
-                        width: 2,
-                      ),
                       borderRadius: BorderRadius.circular(12),
                       image: DecorationImage(
                           image: AssetImage("assets/planetLogo.jpg"),

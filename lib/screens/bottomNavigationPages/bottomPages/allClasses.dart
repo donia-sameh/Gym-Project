@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gym_project/models/Class.dart';
-import 'package:gym_project/services/databaseService.dart';
-import 'package:gym_project/shared/class_card.dart';
+import 'package:phone_auth/models/Class.dart';
+import 'package:phone_auth/services/databaseService.dart';
+import 'package:phone_auth/shared/class_card.dart';
 import '../../../shared/styles/defaultStyles.dart';
 
 class AllClassesPage extends StatefulWidget {
@@ -44,7 +44,7 @@ class _AllClassesPageState extends State<AllClassesPage> {
                         primary: false,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                          mainAxisExtent: 250,
+                          mainAxisExtent: 280,
                           crossAxisSpacing: 20,
                         ),
                         itemCount: snapshot.data.length,

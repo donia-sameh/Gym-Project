@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:phone_auth/controllers/auth_service_email.dart';
+import 'package:phone_auth/models/user.dart';
 
 
 class AgeScreen extends StatefulWidget {
@@ -8,7 +10,7 @@ class AgeScreen extends StatefulWidget {
 
 class _AgeWidgetState extends State<AgeScreen> {
   int selectedAge = 25; // Initial age value
-
+ AuthService authService = AuthService();
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -78,7 +80,7 @@ class _AgeWidgetState extends State<AgeScreen> {
                     100, // Number of age options
                     (index) => Center(
                       child: Text(
-                        (index + 1).toString(),
+                        (index + 18).toString(),
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 35,
@@ -89,19 +91,23 @@ class _AgeWidgetState extends State<AgeScreen> {
                   onSelectedItemChanged: (index) {
                     setState(() {
                       selectedAge = index + 1;
+                     
                     });
                   },
+                  
                 ),
               ),
               SizedBox(height: screenHeight * 0.05),
               Container(
+                
                 alignment: Alignment.bottomRight,
                 padding: EdgeInsets.only(top: screenHeight * 0.2, right: screenWidth * 0.05),
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     // Handle the "Next" button press with the selectedAge
                     Navigator.pushNamedAndRemoveUntil(context,'/weight',((route) => false));
-                    print("Next button pressed with age: $selectedAge");
+                     String? user = await authService.ageEntered(selectedAge);
+                    //print("Next button pressed with age: $selectedAge");
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),

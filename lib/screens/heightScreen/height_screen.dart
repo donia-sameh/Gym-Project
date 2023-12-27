@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phone_auth/controllers/auth_service_email.dart';
 
 void main() {
   runApp(HeightWidget());
@@ -16,7 +17,7 @@ class _HeightWidgetState extends State<HeightWidget> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-
+ AuthService authService = AuthService();
     return Scaffold(
       body: Center(
         child: Container(
@@ -81,7 +82,7 @@ class _HeightWidgetState extends State<HeightWidget> {
                     300, // Number of height options
                     (index) => Center(
                       child: Text(
-                        (index + 100).toString(),
+                        (index + 150).toString(),
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 35,
@@ -101,10 +102,11 @@ class _HeightWidgetState extends State<HeightWidget> {
                 alignment: Alignment.bottomRight,
                 padding: EdgeInsets.only(top: screenHeight * 0.2, right: screenWidth * 0.05),
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     // Handle the "Next" button press with the selectedHeight
                     Navigator.pushNamedAndRemoveUntil(context, '/goal', (route) => false);
-                    print("Next button pressed with height: $selectedHeight cm");
+                    String? user = await authService.heightEntered(selectedHeight);
+                    //print("Next button pressed with height: $selectedHeight cm");
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),

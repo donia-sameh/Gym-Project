@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gym_project/screens/bottomNavigationPages/bottomPages/homescreen.dart';
-import 'package:gym_project/screens/bottomNavigationPages/bottomPages/profilePage.dart';
-import 'package:gym_project/shared/customWidgets/Custom_buttom.dart';
+import 'package:phone_auth/screens/bottomNavigationPages/bottomPages/homescreen.dart';
+import 'package:phone_auth/screens/bottomNavigationPages/bottomPages/profilePage.dart';
+import 'package:phone_auth/shared/customWidgets/Custom_buttom.dart';
 
 class Successfull_page extends StatelessWidget {
   Successfull_page({

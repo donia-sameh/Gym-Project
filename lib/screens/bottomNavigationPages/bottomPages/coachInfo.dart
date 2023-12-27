@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gym_project/models/coach.dart';
+import 'package:phone_auth/models/coach.dart';
 
 import '../../../shared/customWidgets/Custom_buttom.dart';
 import '../../../shared/styles/defaultStyles.dart';

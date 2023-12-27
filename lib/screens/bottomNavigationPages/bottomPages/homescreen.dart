@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gym_project/models/Class.dart';
-import 'package:gym_project/screens/videoup/video.dart';
-import 'package:gym_project/services/databaseService.dart';
-import 'package:gym_project/shared/coach_card.dart';
+import 'package:phone_auth/models/Class.dart';
+import 'package:phone_auth/screens/videoup/video.dart';
+import 'package:phone_auth/services/databaseService.dart';
+import 'package:phone_auth/shared/coach_card.dart';
 import '../../../models/coach.dart';
 import '../../../shared/class_card.dart';
 import '../../../shared/customWidgets/Custom_tab_bar.dart';
@@ -21,11 +23,29 @@ class _HomeScreenState extends State<HomeScreen> {
   DatabaseService _db = DatabaseService();
   String keyword = 'all classes';
 
-  @override
+@override
   void initState() {
     super.initState();
+   // _user = FirebaseAuth.instance.currentUser;
+   
+    // Fetch user data on page load
+    _fetchUserData();
   }
+  String _userName='';
+ Future<void> _fetchUserData() async {
+    if (FirebaseAuth.instance.currentUser!.uid != null) {
+      DocumentSnapshot<Map<String, dynamic>> userSnapshot =
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .get();
 
+      setState(() {
+        _userName = userSnapshot['fname'] ?? '';
+        
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -36,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomAppBar(
-                userName: "User",
+                userName: _userName,
                 description: "Welcome to our gym",
               ),
               const SizedBox(height: 40),
@@ -46,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(height: 15),
               Container(
-                  height: 270,
+                  height: 300,
                   child: FutureBuilder(
                     future: _db.allClasses(),
                     builder: (context, AsyncSnapshot snapshot) {
@@ -157,7 +177,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 15,
               ),
               Container(
-                height: 270,
+                height: 300,
                 child: FutureBuilder(
                   future: _db.filterSearch(keyword),
                   builder: ((context, snapshot) {

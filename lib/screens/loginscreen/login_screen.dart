@@ -4,9 +4,9 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:form_validator/form_validator.dart';
-import 'package:gym_project/globals/globals.dart';
-import 'package:gym_project/services/databaseService.dart';
-import 'package:gym_project/shared/customWidgets/CustomTextField.dart';
+import 'package:phone_auth/globals/globals.dart';
+import 'package:phone_auth/services/databaseService.dart';
+import 'package:phone_auth/shared/customWidgets/CustomTextField.dart';
 import '../../../shared/styles/defaultStyles.dart';
 
 class Login extends StatefulWidget {

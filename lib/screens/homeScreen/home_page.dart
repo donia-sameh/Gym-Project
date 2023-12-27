@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gym_project/controllers/auth_service.dart';
-import 'package:gym_project/screens/loginscreen/LoginPageEmail.dart';
-//import 'package:gym_project/screens/loginscreen/login_page.dart';
+import 'package:phone_auth/controllers/auth_service.dart';
+import 'package:phone_auth/screens/loginscreen/LoginPageEmail.dart';
+//import 'package:phone_auth/screens/loginscreen/login_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

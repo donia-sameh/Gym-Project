@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:gym_project/screens/bottomNavigationPages/bottomPages/allClasses.dart';
-import 'package:gym_project/screens/bottomNavigationPages/bottomPages/profilePage.dart';
+import 'package:phone_auth/screens/bottomNavigationPages/bottomPages/allClasses.dart';
+import 'package:phone_auth/screens/bottomNavigationPages/bottomPages/profilePage.dart';
+import 'package:phone_auth/screens/bottomNavigationPages/bottomPages/transformation.dart';
 import '../../../shared/styles/defaultStyles.dart';
 
 import '../../shared/class_card.dart';
@@ -28,6 +29,7 @@ class _BottomPagesState extends State<BottomPages> {
   List<Widget> screens = [
     HomeScreen(),
     AllClassesPage(),
+    TransformationPage(),
     ProfilePage(),
   ];
 
@@ -54,6 +56,10 @@ class _BottomPagesState extends State<BottomPages> {
           GButton(
             icon: Icons.class_rounded,
             text: "Classes",
+          ),
+          GButton(
+            icon: Icons.bar_chart,
+            text: "Transformation",
           ),
           GButton(
             icon: Icons.people,

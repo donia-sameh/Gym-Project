@@ -1,4 +1,4 @@
-import 'package:gym_project/services/databaseService.dart';
+import 'package:phone_auth/services/databaseService.dart';
 
 
 class Globals {

@@ -2,8 +2,8 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:gym_project/controllers/auth_service_email.dart';
-import 'package:gym_project/screens/admin_screen/userList.dart';
+import 'package:phone_auth/controllers/auth_service_email.dart';
+import 'package:phone_auth/screens/admin_screen/userList.dart';
 import '../../../shared/styles/defaultStyles.dart';
 //import '../styles/defaultStyles.dart';
 
@@ -15,7 +15,7 @@ class LoginSignupPage extends StatefulWidget {
 class _LoginSignupPageState extends State<LoginSignupPage> {
   final _formKey = GlobalKey<FormState>();
   bool _isLoginForm = true;
-  late String _email, _password;
+  late String _email, _password,_firstname,_lastname;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,48 +95,51 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                         ),
                         const SizedBox(height: 10),
                         InkWell(
-                        onTap: _submit,
-                        child:Container(
-                          padding: EdgeInsets.fromLTRB(60, 10, 60, 10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(borderRadius1),
-                            color: Color(0xffD4F11D),
+                          onTap: _submit,
+                          child: Container(
+                            padding: EdgeInsets.fromLTRB(60, 10, 60, 10),
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.circular(borderRadius1),
+                              color: Color(0xffD4F11D),
+                            ),
+                            child: Text(
+                              _isLoginForm ? "Login" : 'Sign Up',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 22,
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
-                          child: Text(_isLoginForm ? 
-                          
-                          "Login" : 'Sign Up' 
-                          ,style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 22,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.bold),
-                                ),
-                        ),),
-                        SizedBox(height: 10.0),
-                         InkWell(
-                        onTap: _toggleForm,
-                        child:Container(
-                          padding: EdgeInsets.fromLTRB(60, 10, 60, 10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(borderRadius1),
-                            color: Color(0xffD4F11D),
-                          ),
-                            child: Text(_isLoginForm
-                              ? 'Create an account'
-                              : 'Have an account? Sign in'
-                              ,style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 22,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.bold),
-                                ),),
-                      
-                          
                         ),
-                      
-                        
-                      
-                        
+                        SizedBox(height: 10.0),
+                        InkWell(
+                          onTap: () => Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            //'/home',
+                            '/signup',
+                            (route) => false,
+                          ),
+                          child: Container(
+                            padding: EdgeInsets.fromLTRB(60, 10, 60, 10),
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.circular(borderRadius1),
+                              color: Color(0xffD4F11D),
+                            ),
+                            child: Text(
+                              _isLoginForm
+                                  ? 'Create an account'
+                                  : 'Have an account? Sign in',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 22,
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -149,21 +152,33 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     );
   }
 
+  // void _toggleForm() {
+  //   setState(() {
+  //     _isLoginForm = !_isLoginForm;
+  //   });
+  // }
   void _toggleForm() {
-    setState(() {
-      _isLoginForm = !_isLoginForm;
-    });
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      //'/home',
+      '/age',
+      (route) => false,
+    );
   }
 
   void _submit() async {
     final form = _formKey.currentState;
+
+    const loginAdmin="clerk@clerk.com";
+    // const passwordAdmin="clerk123";
+
     AuthService authService = AuthService();
     if (form!.validate()) {
       form.save();
-
       if (_isLoginForm) {
         User? user =
             await authService.signInWithEmailAndPassword(_email, _password);
+          
         if (user != null) {
           final snackBar = SnackBar(
             content: AwesomeSnackbarContent(
@@ -175,12 +190,21 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(snackBar);
-          Navigator.pushNamedAndRemoveUntil(
+            if(user.email==loginAdmin ){
+                 Navigator.pushNamedAndRemoveUntil(
             context,
             //'/home',
-            '/age',
+            '/admin',
             (route) => false,
           );
+            }else{
+                Navigator.pushNamedAndRemoveUntil(
+            context,
+            //'/home',
+            '/home',
+            (route) => false,
+          );
+            }
           // Navigator.pushReplacement(
           //   context,
           //   MaterialPageRoute(builder: (context) => UserListPage()),
@@ -197,38 +221,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
             ..hideCurrentSnackBar()
             ..showSnackBar(snackBar);
         }
-      }
-    } else {
-      User? user =
-          await authService.registerWithEmailAndPassword(_email, _password);
-      if (user != null) {
-        final snackBar = SnackBar(
-          content: AwesomeSnackbarContent(
-            title: 'Success',
-            message: 'Logged into your account',
-            contentType: ContentType.success,
-          ),
-        );
-        ScaffoldMessenger.of(context)
-          ..hideCurrentSnackBar()
-          ..showSnackBar(snackBar);
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => UserListPage()),
-        );
-      } else {
-        final snackBar = SnackBar(
-          content: AwesomeSnackbarContent(
-            title: 'failure',
-            message: 'email or password is wrong!',
-            contentType: ContentType.failure,
-          ),
-        );
-        ScaffoldMessenger.of(context)
-          ..hideCurrentSnackBar()
-          ..showSnackBar(snackBar);
-      }
-      //print('Registration failed. Please try again.');
+      } 
     }
   }
 }

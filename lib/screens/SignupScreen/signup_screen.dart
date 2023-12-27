@@ -1,12 +1,14 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:form_validator/form_validator.dart';
-import 'package:gym_project/shared/customWidgets/CustomDropDown.dart';
-import 'package:gym_project/shared/customWidgets/Custom_buttom.dart';
-import 'package:gym_project/shared/styles/defaultStyles.dart';
+import 'package:phone_auth/shared/customWidgets/CustomDropDown.dart';
+import 'package:phone_auth/shared/customWidgets/Custom_buttom.dart';
+import 'package:phone_auth/shared/styles/defaultStyles.dart';
 import 'package:table_calendar/table_calendar.dart';
-
+import 'package:phone_auth/controllers/auth_service_email.dart';
 import '../../shared/customWidgets/CustomTextField.dart';
 import '../../../shared/styles/defaultStyles.dart';
 import '../loginscreen/login_screen.dart';
@@ -20,7 +22,7 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
-  DatabaseService _db = DatabaseService();
+  //DatabaseService _db = DatabaseService();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _fnameController = TextEditingController();
   TextEditingController _lnameController = TextEditingController();
@@ -31,7 +33,8 @@ class _SignupState extends State<Signup> {
   TextEditingController _dobController = TextEditingController();
   String selectedGender = 'Male';
   List<String> gendersList = ['Male', 'Female'];
-
+  late String _email, _password,_firstname,_lastname;
+//,_firstname,_lastname,_phonenumber;
   DateTime date = DateTime(2022, 12, 24);
 
   @override
@@ -65,6 +68,7 @@ class _SignupState extends State<Signup> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          
                           CustomTextField(
                             obscureText: false,
                             name: "First Name",
@@ -90,6 +94,7 @@ class _SignupState extends State<Signup> {
                                   .minLength(10)
                                   .maxLength(50)
                                   .build();
+                                  
                             },
                           ),
                         ],
@@ -131,120 +136,6 @@ class _SignupState extends State<Signup> {
                           )
                         ],
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Column(
-                        children: [
-                          CustomTextField(
-                            name: "Verify Your Password",
-                            width: 260,
-                            obscureText: true,
-                            hintText: "ReEnter Your Password",
-                            controller: _verifyPasswordController,
-                            validate: (() {
-                              ValidationBuilder()
-                                  .minLength(8)
-                                  .maxLength(32)
-                                  .build();
-                            }),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          /* CustomTextField(
-                            obscureText: false,
-                            name: "Date of birth",
-                            width: 150,
-                            hintText: "Enter Your Birth date",
-                            controller: _dobController,
-                          ), */
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Date of birth",
-                                style: tabTextStyle.copyWith(color: crWhite),
-                              ),
-                              InkWell(
-                                onTap: () async {
-                                  DateTime? newDate = await showDatePicker(
-                                    context: context,
-                                    initialDate: date,
-                                    firstDate: DateTime(2002),
-                                    lastDate: DateTime(2100),
-                                  );
-                                  /* If "Cancel" => null */
-                                  if (newDate == null) return;
-                                  /* if 'OK' => DateTime */
-                                  setState(() => date = newDate);
-                                  // print(date);
-                                },
-                                child: Ink(
-                                  width: 140,
-                                  padding: const EdgeInsets.only(
-                                      left: 20, right: 20, top: 10, bottom: 10),
-                                  decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.circular(borderRadius2),
-                                    border:
-                                        Border.all(color: crWhite, width: 1),
-                                  ),
-                                  child: Text(
-                                    "${date.year}/${date.month}/${date.day}",
-                                    style: textStyle.copyWith(color: crWhite),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(width: 10),
-                          CustomDropDown(
-                            dropdownName: "Gender",
-                            selectedValue: selectedGender,
-                            valuesList: gendersList,
-                            width: 100,
-                            color: crWhite,
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Column(
-                        children: [
-                          CustomTextField(
-                            name: "Address",
-                            width: 260,
-                            obscureText: false,
-                            hintText: "Enter Your Address",
-                            controller: _addressController,
-                            validate: () {},
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Column(
-                        children: [
-                          CustomTextField(
-                            name: "Phone Number",
-                            width: 260,
-                            obscureText: false,
-                            hintText: "Enter Your Phone Number",
-                            controller: _phoneNumberController,
-                            validate: () {
-                              ValidationBuilder().phone().build();
-                            },
-                          )
-                        ],
-                      ),
                       const SizedBox(height: 10),
                       Divider(
                         thickness: 2,
@@ -253,91 +144,108 @@ class _SignupState extends State<Signup> {
                         color: Colors.white,
                       ),
                       SizedBox(height: 10),
-                      CustomButtom(
-                        text: 'Sign Up',
-                        width: MediaQuery.of(context).size.width,
-                        pressed: () async {
-                          try {
-                            var respone = await _db.insertData('''
-                           insert into user(
-                           firstName,
-                           lastName,
-                           email,
-                           password,
-                           address,
-                           phoneNumber,
-                           gender
-                           )
-                           
-                           values('${_fnameController.text}',
-                           '${_lnameController.text}',
-                           '${_emailController.text}',
-                           '${_passwordController.text}',
-                           '${_addressController.text}',
-                           '${_phoneNumberController.text}',
-                           '${selectedGender}'
-                           
-
-                           )
-                            ''');
-                            print(respone);
-                            final snackBar = SnackBar(
-                              content: AwesomeSnackbarContent(
-                                title: 'Success',
-                                message: 'Successfully created an account',
-                                contentType: ContentType.success,
-                              ),
-                            );
-                            ScaffoldMessenger.of(context)
-                              ..hideCurrentSnackBar()
-                              ..showSnackBar(snackBar);
-                          } catch (e) {
-                            final snackBar = SnackBar(
-                              content: AwesomeSnackbarContent(
-                                title: 'failed',
-                                message: "something went wrong!",
-                                contentType: ContentType.failure,
-                              ),
-                            );
-                            ScaffoldMessenger.of(context)
-                              ..hideCurrentSnackBar()
-                              ..showSnackBar(snackBar);
-                          }
-                          _fnameController.text = '';
-                          _lnameController.text = '';
-                          _addressController.text = '';
-                          _passwordController.text = '';
-                          _verifyPasswordController.text = '';
-                          _phoneNumberController.text = '';
-                        },
-                      ),
-                      SizedBox(height: 5),
-                      RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(text: "Have An Account ? "),
-                            TextSpan(
-                              text: "Login",
-                              style: linkStyle,
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () => {
-                                      Navigator.pushNamed(
-                                        context,
-                                        '/login',
-                                      )
-                                    },
+                      const SizedBox(height: 10),
+                        InkWell(
+                          onTap: _submit,
+                          child: Container(
+                            padding: EdgeInsets.fromLTRB(60, 10, 60, 10),
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.circular(borderRadius1),
+                              color: Color(0xffD4F11D),
                             ),
-                          ],
+                            child: Text(
+                             'Sign Up',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 22,
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
                         ),
-                      ),
                     ],
                   ),
                 ),
-              )
+              ),
             ],
-          )
+          ),
         ],
       ),
     );
   }
+ void _submit() async {
+   AuthService authService = AuthService();
+User? user =
+            await authService.registerWithEmailAndPassword(_emailController.text, _passwordController.text,_fnameController.text,_lnameController.text);
+        if (user != null) {
+          final snackBar = SnackBar(
+            content: AwesomeSnackbarContent(
+              title: 'Success',
+              message: 'Logged into your account',
+              contentType: ContentType.success,
+            ),
+          );
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(snackBar);
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            //'/home',
+            '/age',
+            (route) => false,
+          );
+          // Navigator.pushReplacement(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => LoginSignupPage()),
+          // );
+        } else {
+          final snackBar = SnackBar(
+            content: AwesomeSnackbarContent(
+              title: 'failure',
+              message: 'Email Already Exists!',
+              contentType: ContentType.failure,
+            ),
+          );
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(snackBar);
+        }
+ }
+
+  void _toggleForm() {
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      //'/home',
+      '/age',
+      (route) => false,
+    );
+  }
+  //   _fnameController.text = '';
+  //   _lnameController.text = '';
+  //   _addressController.text = '';
+  //   _passwordController.text = '';
+  //   _verifyPasswordController.text = '';
+  //   _phoneNumberController.text = '';
+  // },
+
+  // SizedBox(height: 5),
+  // RichText(
+  //   text: TextSpan(
+  //     children: [
+  //       TextSpan(text: "Have An Account ? "),
+  //       TextSpan(
+  //         text: "Login",
+  //         style: linkStyle,
+  //         recognizer: TapGestureRecognizer()
+  //           ..onTap = () => {
+  //                 Navigator.pushNamed(
+  //                   context,
+  //                   '/login',
+  //                 )
+  //               },
+  //       ),
+  //     ],
+  //   ),
+  // ),
 }

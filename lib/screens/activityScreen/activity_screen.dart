@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phone_auth/controllers/auth_service_email.dart';
 
 class ActivityLevelWidget extends StatefulWidget {
   @override
@@ -6,8 +7,8 @@ class ActivityLevelWidget extends StatefulWidget {
 }
 
 class _ActivityLevelWidgetState extends State<ActivityLevelWidget> {
-  String selectedActivityLevel = 'Sedentary'; // Initial activity level value
-
+  String selectedActivityLevel = 'Lightly'; // Initial activity level value
+AuthService authService = AuthService();
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -68,18 +69,17 @@ class _ActivityLevelWidgetState extends State<ActivityLevelWidget> {
               ),
               SizedBox(height: screenHeight * 0.05),
               Container(
-                width: screenWidth * 0.4,
+                width: screenWidth * 0.45,
                 height: screenHeight * 0.4, // Adjust the height of the wheel
                 child: ListWheelScrollView(
                   itemExtent:
                       screenHeight * 0.1, // Adjust the item extent as needed
                   physics: FixedExtentScrollPhysics(),
                   children: [
-                    'Sedentary',
-                    'Lightly Active',
-                    'Moderately Active',
-                    'Very Active',
-                    'Extremely Active',
+                    'Lightly ',
+                    
+                    'Very ',
+                    'Extremely ',
                   ].map((activityLevel) {
                     return Center(
                       child: Text(
@@ -94,11 +94,10 @@ class _ActivityLevelWidgetState extends State<ActivityLevelWidget> {
                   onSelectedItemChanged: (index) {
                     setState(() {
                       selectedActivityLevel = [
-                        'Sedentary',
-                        'Lightly Active',
-                        'Moderately Active',
-                        'Very Active',
-                        'Extremely Active',
+                         'Lightly ',
+                    
+                    'Very ',
+                    'Extremely ',
                       ][index];
                     });
                   },
@@ -110,10 +109,11 @@ class _ActivityLevelWidgetState extends State<ActivityLevelWidget> {
                 padding: EdgeInsets.only(
                     top: screenHeight * 0.2, right: screenWidth * 0.05),
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     // Handle the "Next" button press with the selectedActivityLevel
                     Navigator.pushNamedAndRemoveUntil(
                         context, '/home', (route) => false);
+                        String? user = await authService.activityEntered(selectedActivityLevel);
                     print("Next button pressed with activity level: $selectedActivityLevel");
                   },
                   child: Padding(

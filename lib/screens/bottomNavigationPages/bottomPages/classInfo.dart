@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gym_project/globals/globals.dart';
-import 'package:gym_project/models/Class.dart';
-import 'package:gym_project/screens/videoup/video.dart';
+import 'package:phone_auth/globals/globals.dart';
+import 'package:phone_auth/models/Class.dart';
+import 'package:phone_auth/screens/videoup/video.dart';
 
 import '../../../models/user.dart';
 import '../../../services/databaseService.dart';
@@ -196,7 +196,7 @@ class _ClassInfoState extends State<ClassInfo> {
                         color: Color.fromARGB(255, 255, 255, 255),
                       ),
                       child: Text(
-                        "Coach Name",
+                        "Habeba",
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 17,
